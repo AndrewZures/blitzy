@@ -15,7 +15,8 @@ defmodule Blitzy.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [mod: {Blitzy, []},
+     extra_applications: [:logger, :httpoison, :timex]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,6 +29,10 @@ defmodule Blitzy.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:httpoison, "~> 0.9.0"},
+      {:timex,     "~> 3.0"},
+      {:tzdata,    "~> 0.1.8", override: true}
+    ]
   end
 end
