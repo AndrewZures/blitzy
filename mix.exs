@@ -5,6 +5,7 @@ defmodule Blitzy.Mixfile do
     [app: :blitzy,
      version: "0.1.0",
      elixir: "~> 1.4",
+     escript: [main_module: Blitzy.ClI],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
