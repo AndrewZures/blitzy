@@ -28,14 +28,15 @@ defmodule Blitzy.CLI do
     total_nodes = Enum.count(nodes)
     req_per_node = div(n_requests, total_nodes)
 
+    me = self()
     nodes
     |> Enum.flat_map(fn node ->
       1..req_per_node |> Enum.map(fn _ ->
-        Task.Supervisor.async({Blitzy.TasksSupervisor, node}, BlitzyWorker, :start, [url])
+        Task.Supervisor.async({Blitzy.TasksSupervisor, node}, Blitzy.Worker, :start, [url, me])
       end)
     end)
     |> Enum.map(&Task.await(&1, :infinity))
-    |> parse_results
+    |> Blitzy.Caller.parse_results
   end
 
   defp parse_results(list) do

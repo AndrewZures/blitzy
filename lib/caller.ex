@@ -9,7 +9,7 @@ defmodule Blitzy.Caller do
     |> parse_results
   end
 
-  defp parse_results(results) do
+  def parse_results(results) do
     {successes, failures} = results |> partition_results
 
     total_workers = Enum.count(results)
